@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchList, fetchNextBatch } from '../features/pokemon/pokemonSlice'
+import { fetchList, fetchNextBatch, removeSelection } from '../features/pokemon/pokemonSlice'
 import { PokemonCard } from './PokemonCard'
 
 export const PokemonGallery = () => {
-    const dispatch = useDispatch();
     const pokemonData = useSelector(state => state.pokemon);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchList()).then(() => {
@@ -32,7 +32,8 @@ export const PokemonGallery = () => {
 
     return (
         <div>
-            <h2>Pokemons</h2>
+            <h2>Pokemons</h2> 
+            <button onClick={() => dispatch(removeSelection())}>Remove selection</button>
 
             { pokemonData.loadingList && <p>Loading...</p> }
             { !pokemonData.loadingList && pokemonData.error ? <p>{ pokemonData.error }</p> : null }

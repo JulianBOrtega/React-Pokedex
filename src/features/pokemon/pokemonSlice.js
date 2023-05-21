@@ -6,6 +6,7 @@ const initialState = {
     loadingNextBatch: false,
     list: [],
     detailLoaded: [],
+    selection: [],
     offset: 0,
     limit: 20,
     error: ''
@@ -44,6 +45,18 @@ export const fetchNextBatch = () => {
     }
 }
 
+export const removeSelection = () => {
+    return (dispatch, getState) => {
+        const selection = getState().pokemon.selection;
+
+        selection.forEach(pokemonName => {
+            dispatch(removePokemon(pokemonName))
+        });
+
+        dispatch(clearSelection());
+    }
+}
+
 const pokemonSlice = createSlice({
     name: 'pokemon',
     initialState,
@@ -54,13 +67,22 @@ const pokemonSlice = createSlice({
         increaseOffset: state => {
             state.offset += state.limit;
         },
-        removePokemons: (state, action) => {
-            action.payload.forEach(targetName => {
-                state.list = state.list.filter(pokemon => pokemon.name !== targetName);
+        selectPokemon: (state, action) => {
+            !state.selection.includes(action.payload) && 
+                state.selection.push(action.payload)
+        },
+        deselectPokemon: (state, action) => {
+            state.selection = state.selection.filter(pokemonName => pokemonName != action.payload);
+        },
+        clearSelection: state => {
+            state.selection = [];
+        },
+        removePokemon: (state, action) => {
+            const targetName = action.payload;
+            state.list = state.list.filter(pokemon => pokemon.name !== targetName);
 
-                const filteredArray = Object.entries(state.detailLoaded).filter(([key, value]) => key !== targetName);
-                state.detailLoaded = Object.fromEntries(filteredArray);
-            })
+            const filteredArray = Object.entries(state.detailLoaded).filter(([key, value]) => key !== targetName);
+            state.detailLoaded = Object.fromEntries(filteredArray);
         }
     },
     extraReducers: builder => {
@@ -92,5 +114,7 @@ const pokemonSlice = createSlice({
     }
 })
 
-export const { increaseOffset, setLoadingNextBatch, removePokemons } = pokemonSlice.actions
+export const { increaseOffset, setLoadingNextBatch, removePokemon,
+    selectPokemon, deselectPokemon, clearSelection } = pokemonSlice.actions
+
 export default pokemonSlice.reducer
