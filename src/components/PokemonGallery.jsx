@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchList, fetchNextBatch, removeSelection } from '../features/pokemon/pokemonSlice'
+import { fetchList, fetchBatch, fetchNextBatch, removeSelection } from '../features/pokemon/pokemonSlice'
+import { fetchAbilities } from '../features/ability/abilitySlice'
 import { PokemonCard } from './PokemonCard'
 
 export const PokemonGallery = () => {
@@ -12,13 +13,35 @@ export const PokemonGallery = () => {
             dispatch(fetchNextBatch());
             console.log('triggers from 1st useEffect')
         });
+
+        dispatch(fetchAbilities());
     }, [])
+
+    useEffect(() => {
+        if(pokemonData.filter.content !== ''){ 
+            const start = pokemonData.filteredOffset;
+            const end = pokemonData.filteredOffset + pokemonData.limit;
+            
+            dispatch(fetchBatch(pokemonData.filteredList.slice(start, end)));
+            console.log('triggered filterload')
+        }
+    }, [pokemonData.filter.content])
 
     useEffect(() => {
         const handleScroll = () => {
             const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
             if(scrollTop + clientHeight >= scrollHeight - 10 && !pokemonData.loadingNextBatch) {
-                dispatch(fetchNextBatch());
+
+                if(pokemonData.filter.content !== ''){ 
+                    const start = pokemonData.filteredOffset;
+                    const end = pokemonData.filteredOffset + pokemonData.limit;
+                    
+                    fetchBatch(pokemonData.filteredList.slice(start, end));
+                    setFilteredLastIndex(filteredLastIndex + 20);
+                }
+                else{
+                    dispatch(fetchNextBatch());
+                }
                 console.log('triggers from 2nd useEffect')
             }
         };
@@ -32,16 +55,25 @@ export const PokemonGallery = () => {
 
     return (
         <div>
-            <h2>Pokemons</h2> 
+            <h2>{(pokemonData.filter.content != '') ? 
+                `Search: ${pokemonData.filter.content}` : 'Pokemons'}</h2> 
             <button onClick={() => dispatch(removeSelection())}>Remove selection</button>
 
             { pokemonData.loadingList && <p>Loading...</p> }
             { !pokemonData.loadingList && pokemonData.error ? <p>{ pokemonData.error }</p> : null }
-            { !pokemonData.loadingList && pokemonData.list.length > 0 ? (
-                <div> 
-                    { pokemonData.list.map((pokemon, i) => <PokemonCard key={ i + pokemon.name} { ...pokemon } />) } 
+            { !pokemonData.loadingList && pokemonData.list.length > 0 ? 
+                pokemonData.filter.content != '' ? (
+                <div>
+                    { pokemonData.filteredList
+                        .map((pokemon, i) => <PokemonCard key={ i + pokemon.name} { ...pokemon } />) } 
                 </div>
-            ) : null }
+                ) : (
+                <div>
+                    { pokemonData.list
+                        .map((pokemon, i) => <PokemonCard key={ i + pokemon.name} { ...pokemon } />) } 
+                </div>
+                ) 
+            : null }
         </div>
     )
 }

@@ -16,7 +16,7 @@ export const PokemonCard = ( pokemon ) => {
     return (
     pokemonDetail[pokemon.name] ? (
         <div>
-            <img onClick={ handleClick } src={ pokemonDetail[pokemon.name].sprites.front_default } alt={ `${pokemon.name} sprite` } /> 
+            <img onClick={ handleClick } src={ pokemonDetail[pokemon.name].sprites.other['official-artwork'].front_default } alt={ `${pokemon.name} sprite` } /> 
             <p >{ pokemon.name } { selection.includes(pokemon.name) && <b>// Selected //</b>}</p>
         </div>
         ) : null
