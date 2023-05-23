@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchList, fetchBatch, fetchNextBatch, removeSelection } from '../features/pokemon/pokemonSlice'
-import { fetchAbilities } from '../features/ability/abilitySlice'
+import { fetchList, fetchBatch, fetchNextBatch, applyPokemonFilter } from '../features/pokemon/pokemonSlice'
+import { applyAbilityFilter, fetchAbilities } from '../features/ability/abilitySlice'
 import { PokemonCard } from './PokemonCard'
 import nothingFound from '../assets/nothing.png'
 import './pokemonGallery.css'
@@ -57,9 +57,8 @@ export const PokemonGallery = () => {
 
     return (
         <div className='pokemonGallery'>
-            <h2>{(pokemonData.filter.content != '') ? 
-                `Search: ${pokemonData.filter.content}` : 'Pokemons'}</h2> 
-            <button onClick={() => dispatch(removeSelection())}>Remove selection</button>
+            <h2>{(pokemonData.filter.content != '') && 
+                `Searching ${pokemonData.filter.content}...`}</h2> 
 
             { pokemonData.loadingList && <p>Loading...</p> }
             { !pokemonData.loadingList && pokemonData.error ? <p>{ pokemonData.error }</p> : null }

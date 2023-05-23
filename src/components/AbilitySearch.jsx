@@ -18,7 +18,7 @@ export const AbilitySearch = () => {
             <div className='container'>
             { abilityData.loadingList  ? <img src={loading} alt="Loading..." className="loadingGif" />
                 : abilityData.filteredList?.slice(0, 7).map((ability, i) => 
-                        <p key={ i + ability.name} onClick={e => 
+                        <p key={ i + ability.name} className='ability' onClick={e => 
                         handleAbilitySelection(e, ability)}>{ability.name}</p>) }
             </div>
         </div>

@@ -8,7 +8,7 @@
     padding: 25px;
     width: 250px;
     height: 350px;
-
+    gap: 5px;
     transition: ease 150ms background-color;
 }
 
@@ -33,6 +33,7 @@
 .pokemonCard .pokemonImg {
     width: 200px;
     height: 200px;
+    cursor: pointer;
 }
 
 .pokemonCard p {
@@ -57,5 +58,10 @@
     background-color: var(--c_light);
     padding: 5px;
     border-radius: 10px;
+    transition: ease 100ms background-color;
+    cursor: pointer;
 }
 
+.pokemonCard .abilityContainer .ability:hover {
+    background-color: var(--c_medium);
+}

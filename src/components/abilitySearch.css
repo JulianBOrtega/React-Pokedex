@@ -4,13 +4,26 @@
 
 .abilitySearch .container {
     position: relative;
-    top: -10px;
+    top: 0px;
     left: -80px;
     background-color: var(--c_dark);
-    padding: 0px 100px;
+    padding: 10px 100px;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.abilitySearch .container .ability{
+    color: white;
+    cursor: pointer;
+}
+
+.abilitySearch .container .ability:hover{
+    color: var(--c_lightest)
 }
 
 .abilitySearch .loadingGif {
