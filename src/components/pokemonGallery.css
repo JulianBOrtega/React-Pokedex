@@ -9,3 +9,8 @@
     width: 100%;
     gap: 15px
 }
+
+.pokemonGallery .pokemonContainer .nothingFound {
+    width: 100%;
+    font-size: 20px;
+}

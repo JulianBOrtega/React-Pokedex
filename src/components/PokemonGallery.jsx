@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchList, fetchBatch, fetchNextBatch, removeSelection } from '../features/pokemon/pokemonSlice'
 import { fetchAbilities } from '../features/ability/abilitySlice'
 import { PokemonCard } from './PokemonCard'
+import nothingFound from '../assets/nothing.png'
 import './pokemonGallery.css'
 
 export const PokemonGallery = () => {
@@ -67,6 +68,12 @@ export const PokemonGallery = () => {
                 <div className='pokemonContainer'>
                     { pokemonData.filteredList
                         .map((pokemon, i) => <PokemonCard key={ i + pokemon.name} { ...pokemon } />) } 
+                    { pokemonData.filteredList.length == 0 && (
+                        <div className='nothingFound'>
+                            <img src={nothingFound} alt="nothingFound" />
+                            <p>0 results. Sorry.</p>
+                        </div>
+                    )}
                 </div>
                 ) : (
                 <div className='pokemonContainer'>

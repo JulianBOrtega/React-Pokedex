@@ -67,29 +67,34 @@ export const Searchbar = () => {
 
   return (
     <div className='searchBar'>
-        <select defaultValue="pokemon" ref={ typeRef } onChange={handleSwitchInputs}>
-            <option value="pokemon">Pokemon</option>
-            <option value="ability">Ability</option>
-        </select>
-        <div className='searchInput'>
-            <input type="text" placeholder="Search..." ref={ inputRef } onChange={ handleInputActivity } />
-            { typeRef.current && typeRef.current.value == 'ability' ? 
-                ((inputRef.current.value != '') && <AbilitySearch/>)
-                : null }
-        </div>
-        <button onClick={ handleClearFilter }>x</button>
-        <button onClick={ handleForceSearch }>Search</button>
-        <div className='abilitiesSelected'>
-            <div className='abilitiesSelectedContainer'>
-                {
-                    pokemonFilter.abilities &&
-                        pokemonFilter.abilities.length > 0 &&
+        <div className='barContainer'>
+            <select defaultValue="pokemon" ref={ typeRef } onChange={handleSwitchInputs}>
+                <option value="pokemon">Pokemon</option>
+                <option value="ability">Ability</option>
+            </select>
+            <div className='searchInput'>
+                <input type="text" placeholder="Search..." ref={ inputRef } onChange={ handleInputActivity } />
+                { typeRef.current && typeRef.current.value == 'ability' ? 
+                    ((inputRef.current.value != '') && <AbilitySearch/>)
+                    : null }
+            </div>
+            <button onClick={ handleClearFilter }>x</button>
+            <button onClick={ handleForceSearch }>Search</button>
+            {
+                pokemonFilter.abilities &&
+                pokemonFilter.abilities.length > 0 && (
+                <div>
+                    <div className='abilitiesSelected'>
+                    <p>Filter:</p>
+                        {
                             pokemonFilter.abilities.map((ability, i) =>
                                 <button key={i + ability.name} onClick={e => handleRemoveSkill(ability.name)}>{ability.name}</button>)
-                }
-            </div>
+                        }
+                    </div>
+                </div>
+                )
+            }
         </div>
-
     </div>
   )
 }

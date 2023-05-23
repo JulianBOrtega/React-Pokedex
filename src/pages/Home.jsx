@@ -4,7 +4,6 @@ import { Searchbar } from '../components/Searchbar'
 export const Home = () => {
   return (
     <div>
-      Home
       <Searchbar/>
       <PokemonGallery/>
     </div>
