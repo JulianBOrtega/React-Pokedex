@@ -1,0 +1,18 @@
+
+.homePage .goUp {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--t_darkest);
+    border-radius: 100%;
+    position: sticky;
+    left: 100%;
+    bottom: 10px;
+    width: 50px;
+    height: 50px;
+    padding: 5px 5px 5px 5px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 29px;
+    color: white;
+}
