@@ -1,0 +1,20 @@
+.abilitySearch {
+    position: absolute;
+}
+
+.abilitySearch .container {
+    position: relative;
+    top: -10px;
+    left: -80px;
+    background-color: var(--c_dark);
+    padding: 0px 100px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    width: 200px;
+}
+
+.abilitySearch .loadingGif {
+    width: 40px;
+    height: 40px;
+    margin: 25px;
+}

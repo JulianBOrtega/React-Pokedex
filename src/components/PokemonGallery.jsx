@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchList, fetchBatch, fetchNextBatch, removeSelection } from '../features/pokemon/pokemonSlice'
 import { fetchAbilities } from '../features/ability/abilitySlice'
 import { PokemonCard } from './PokemonCard'
+import './pokemonGallery.css'
 
 export const PokemonGallery = () => {
     const pokemonData = useSelector(state => state.pokemon);
@@ -54,7 +55,7 @@ export const PokemonGallery = () => {
     }, [])
 
     return (
-        <div>
+        <div className='pokemonGallery'>
             <h2>{(pokemonData.filter.content != '') ? 
                 `Search: ${pokemonData.filter.content}` : 'Pokemons'}</h2> 
             <button onClick={() => dispatch(removeSelection())}>Remove selection</button>
@@ -63,12 +64,12 @@ export const PokemonGallery = () => {
             { !pokemonData.loadingList && pokemonData.error ? <p>{ pokemonData.error }</p> : null }
             { !pokemonData.loadingList && pokemonData.list.length > 0 ? 
                 pokemonData.filter.content != '' ? (
-                <div>
+                <div className='pokemonContainer'>
                     { pokemonData.filteredList
                         .map((pokemon, i) => <PokemonCard key={ i + pokemon.name} { ...pokemon } />) } 
                 </div>
                 ) : (
-                <div>
+                <div className='pokemonContainer'>
                     { pokemonData.list
                         .map((pokemon, i) => <PokemonCard key={ i + pokemon.name} { ...pokemon } />) } 
                 </div>

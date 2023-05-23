@@ -1,0 +1,37 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--c_darkest);
+    margin: 0px 30%;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid var(--t_darkest);
+    transition: ease 500ms border;
+}
+
+.searchBar:hover {
+    border: 1px solid var(--t_medium)
+}
+
+.searchBar input, .searchBar select, .searchBar button{
+    margin: 0;
+    height: 45px;
+    outline: none;
+    border: none;
+    background-color: var(--c_darkest);
+}
+
+.searchBar input {
+    text-align: center;
+}
+
+.searchBar .abilitiesSelected {
+    position:fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: var(--t_dark);
+    border-radius: 20px;
+    padding: 10px 10px;
+}

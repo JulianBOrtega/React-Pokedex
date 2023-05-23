@@ -4,6 +4,7 @@ import { setPokemonFilterContent, clearPokemonFilterList,
     applyPokemonFilter, removePokemonFilterAbility} from '../features/pokemon/pokemonSlice'
 import { setAbilityFilterContent, clearAbilityFilterList, applyAbilityFilter } from '../features/ability/abilitySlice'
 import { AbilitySearch } from './AbilitySearch'
+import './searchBar.css';
 
 export const Searchbar = () => {
     const pokemonFilter = useSelector(state => state.pokemon.filter);
@@ -65,12 +66,12 @@ export const Searchbar = () => {
     }
 
   return (
-    <div>
+    <div className='searchBar'>
         <select defaultValue="pokemon" ref={ typeRef } onChange={handleSwitchInputs}>
             <option value="pokemon">Pokemon</option>
             <option value="ability">Ability</option>
         </select>
-        <div>
+        <div className='searchInput'>
             <input type="text" placeholder="Search..." ref={ inputRef } onChange={ handleInputActivity } />
             { typeRef.current && typeRef.current.value == 'ability' ? 
                 ((inputRef.current.value != '') && <AbilitySearch/>)
@@ -78,12 +79,16 @@ export const Searchbar = () => {
         </div>
         <button onClick={ handleClearFilter }>x</button>
         <button onClick={ handleForceSearch }>Search</button>
-        {
-            pokemonFilter.abilities &&
-                pokemonFilter.abilities.length > 0 &&
-                    pokemonFilter.abilities.map((ability, i) =>
-                         <button key={i + ability.name} onClick={e => handleRemoveSkill(ability.name)}>{ability.name}</button>)
-        }
+        <div className='abilitiesSelected'>
+            <div className='abilitiesSelectedContainer'>
+                {
+                    pokemonFilter.abilities &&
+                        pokemonFilter.abilities.length > 0 &&
+                            pokemonFilter.abilities.map((ability, i) =>
+                                <button key={i + ability.name} onClick={e => handleRemoveSkill(ability.name)}>{ability.name}</button>)
+                }
+            </div>
+        </div>
 
     </div>
   )

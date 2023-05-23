@@ -12,6 +12,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --c_lightest: #CBF7ED;
+  --c_light: #8EA8C3;
+  --c_medium: #406E8E;
+  --c_dark: #23395B;
+  --c_darkest: #161925;
+  --t_lightest: rgba(203, 247, 237, 0.5);
+  --t_light: rgba(142, 168, 195, 0.5);
+  --t_medium: rgba(64, 110, 142, 0.5);
+  --t_dark: rgba(35, 57, 91, 0.5);
+  --t_darkest: rgba(22, 25, 37, 0.5);
 }
 
 a {
